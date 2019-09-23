@@ -114,7 +114,7 @@ For the above URL, we provide a brief description for each sub-part:
 - The first part refers to the E-utilities base URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
 - The second part refers to the E-utility used (*esummary*)
 - The third part refers to the database that we request data from (*pubmed*)
-- The fourth part is the *entry IDs*, comma separated (we extract the last part 
+- The fourth part is the *entry IDs* (PubMed-specific ids or **PMIDs**), comma separated (we extract the last part 
 of the PubMed-specific URI for each ID). Note that for VSM the URI ID is 
 something like: `https://www.ncbi.nlm.nih.gov/pubmed/12345`.
 - The fifth part defines the format of the returned data (JSON)
@@ -122,16 +122,12 @@ something like: `https://www.ncbi.nlm.nih.gov/pubmed/12345`.
 `apiKey` given to the `DictionaryPubMed` constructor.
 
 Otherwise, we get an error object back since the API does not support the retrieval
-of all PubMed ids information (not even paginated):
+of all PubMed ids information (paginated):
 ```
 { 
   error: 'Not implemented' 
 }
 ```
-
-We always sort firstly the results based on the PubMed id (PMID) value and then
-prune them according to the values `options.page` (default: 1) and 
-`options.perPage` (default: 50).
 
 When using the E-utilities esummary API, we get back a JSON object with a *result* 
 property whose value is the object of returned results. 
@@ -148,7 +144,12 @@ PMID field | Type | Required | VSM entry/match object property | Notes
 `result[PMID].articleids` | Array | YES | `z.articleIDs` | We map the whole array
 
 Note that the whole point of the above mapping is to have a good enough `descr`
-string that a user (curator) will be able to distinguish an entry from the others. 
+string, so that a user (curator) will be able to distinguish an entry article 
+from the others (the PMID is enough for the computer, but not for humans).
+
+After mapping the results to VSM objects, we sort them based on the PMID value 
+and then prune them according to the values `options.page` (default: 1) and 
+`options.perPage` (default: 50).
 
 ### Map Esearch to Match VSM object
 
@@ -160,8 +161,8 @@ dictIDs the `https://www.ncbi.nlm.nih.gov/pubmed` dictID is not included, then
 an **empty array** of match objects is returned.
 
 Otherwise, we use **two URLs**: one to get the relevant PMIDs that match the 
-requested string term (using the *esearch endpoint*) and one like in the `getEntries` 
-case, to get the article summaries matching the previously-found PMIDs (using the *esummary endpoint*). 
+requested string term (using the *esearch* endpoint) and one like in the `getEntries` 
+case, to get the article summaries matching the previously-found PMIDs (using the *esummary* endpoint). 
 An example of these two queries, when searching for `logical modeling` as `str`, 
 would be:
 ```
@@ -169,7 +170,9 @@ https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=logica
 https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=31515732,31407132,31347261&retmode=json
 ```
 
-For the first URL, concerning the *esearch* endpoing, we provide a brief 
+For the second URL, concerning the *esummary* endpoint, a description of each 
+sub-part was given in the section above.
+For the first URL, concerning the *esearch* endpoing, we now provide a brief 
 description for each sub-part: 
 - The first part refers to the E-utilities base URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
 - The second part refers to the E-utility used (*esearch*)
@@ -185,18 +188,24 @@ value is `most recent`. Other acceptable values are:
     - `relevance`
     - `title`
     - `author`  
-This option can be defined in the constructor:  
+This option can be defined in the constructor:   
 `const dict = new DictionaryPubMed({ sort: 'relevance' });`
 - The last part defines the format of the returned data (JSON)
 - There can also be a part that defines the API key as in the `esummary` case.
 
-The first URL returns get back MPIDs 
-`res.esearchresult.idlist`
+The first URL returns an object (let's call it `res`) and we get the PMIDs 
+associated with the searched term `str` as an array of strings (the value of the 
+`res.esearchresult.idlist`). We then use the returned PMIDs to fill in the second
+URL and get back the respective article summaries which we map to VSM-match
+objects as shown in the table above for the `getEntries(options, cb)` case.
 
-and then like esummary mapping in the
-table above..... mapping => 
-
-The mapping fields requested are the same as in the `getEntries(options, cb)` 
-case as well as the mapping shown in the table above.
-
-PMID: 23478 HANDLING
+Note that the **most efficient way to get back a specific article** is to 
+search using a string `str` that matches the PMID or the PMC or the DOI
+number of that article. For example any of the following `str` will return one
+result (VSM-match object corresponding to the article):
+- `7717779`
+- `PMID:7717779`
+- `Pmid: 7717779`
+- `pmiD: 7717779` (note that the PMID keyword is case-insensitive)
+- `PMC1234567`
+- `10.1097/00000658-199503000-00007` (**not `DOI: <doi string>`**)
