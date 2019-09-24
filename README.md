@@ -79,6 +79,17 @@ offered by two of Entrez's E-utilities (*esearch* and *esummary*) and the
 corresponding VSM objects. Find the documentation for the API here: 
 https://dataguide.nlm.nih.gov/eutilities/utilities.html.
 
+Note that in the next functions, whenever we sent requests to NCBI's servers and 
+receive an error response that is not a valid JSON string that we can parse, we 
+formulate the error as a JSON object ourselves in the following format:
+```
+{
+  status: <number>,
+  error: <response> 
+}
+```
+where the *response* from the server is JSON stringified. 
+
 ### Map PubMed Data to DictInfo VSM object
 
 This specification relates to the function:  

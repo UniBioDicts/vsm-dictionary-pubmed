@@ -376,13 +376,10 @@ module.exports = class DictionaryPubMed extends Dictionary {
       if (req.readyState === 4) {
         if (req.status !== 200) {
           let response = req.responseText;
-          if (isJSONString(response)) {
-            cb(JSON.parse(response));
-          } else {
-            let err = '{ "status": ' + req.status
-              + ', "error": ' + JSON.stringify(response) + '}';
-            cb(JSON.parse(err));
-          }
+          isJSONString(response)
+            ? cb(JSON.parse(response))
+            : cb(JSON.parse('{ "status": ' + req.status
+            + ', "error": ' + JSON.stringify(response) + '}'));
         }
         else {
           try {

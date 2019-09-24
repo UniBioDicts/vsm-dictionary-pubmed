@@ -63,9 +63,12 @@ describe('fun.js', () => {
     it('returns true or false whether the given string is a JSON string or ' +
       'not!', cb => {
       expect(isJSONString('')).to.equal(false);
+      expect(isJSONString('melanoma')).to.equal(false);
+      expect(isJSONString('<h1>Not Found</h1>')).to.equal(false);
       expect(isJSONString([])).to.equal(false);
       expect(isJSONString({})).to.equal(false);
       expect(isJSONString('{}')).to.equal(true);
+      expect(isJSONString('[]')).to.equal(true);
       expect(isJSONString('This is not a JSON string.')).to.equal(false);
       expect(isJSONString('["foo","bar",{"foo":"bar"}]')).to.equal(true);
       expect(isJSONString('{"myCount": null}')).to.equal(true);
