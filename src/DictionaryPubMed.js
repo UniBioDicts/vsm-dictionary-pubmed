@@ -1,6 +1,6 @@
 const Dictionary = require('vsm-dictionary');
 const { getLastPartOfURL, fixedEncodeURIComponent,
-  removeDuplicates, isJSONString, cmpIntegerStrings } = require('./fun');
+  removeDuplicates, isJSONString, cmpIntegerStrings, limiter } = require('./fun');
 
 module.exports = class DictionaryPubMed extends Dictionary {
 
@@ -30,6 +30,9 @@ module.exports = class DictionaryPubMed extends Dictionary {
 
     // enable the console.log() usage
     this.enableLogging = opt.log || false;
+
+    // request limiter
+    this.requestLimited = limiter((url, cb) => this.request(url, cb), 200);
   }
 
   getDictInfos(options, cb) {
@@ -68,7 +71,7 @@ module.exports = class DictionaryPubMed extends Dictionary {
     if (this.enableLogging)
       console.log('URL: ' + url);
 
-    this.request(url, (err, res) => {
+    this.requestLimited(url, (err, res) => {
       if (err) return cb(err);
 
       let entryObjArray = this.mapEsummaryResToEntryObj(res);
@@ -101,7 +104,7 @@ module.exports = class DictionaryPubMed extends Dictionary {
     if (this.enableLogging)
       console.log('URL: ' + eSearchURL);
 
-    this.request(eSearchURL, (err, res) => {
+    this.requestLimited(eSearchURL, (err, res) => {
       if (err) return cb(err);
       let pmidList = this.mapEsearchResToPMIDs(res);
 
@@ -111,7 +114,7 @@ module.exports = class DictionaryPubMed extends Dictionary {
       if (this.enableLogging)
         console.log('URL: ' + eSummaryURL);
 
-      this.request(eSummaryURL, (err, res) => {
+      this.requestLimited(eSummaryURL, (err, res) => {
         if (err) return cb(err);
         let matchObjArray = this.mapEsummaryResToMatchObj(res, str);
 

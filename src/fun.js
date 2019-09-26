@@ -1,5 +1,5 @@
 module.exports = { getLastPartOfURL, fixedEncodeURIComponent,
-  removeDuplicates, isJSONString, cmpIntegerStrings };
+  removeDuplicates, isJSONString, cmpIntegerStrings, limiter };
 
 function getLastPartOfURL(entryId) {
   return entryId.split('/').pop();
@@ -33,4 +33,28 @@ function cmpIntegerStrings(a, b) {
     : a > b
       ? 1
       : 0;
+}
+
+/**
+ * For details see: https://patmigliaccio.com/rate-limiting/
+  */
+function limiter(fn, wait) {
+  let isCalled = false;
+  let calls = [];
+
+  let caller = function() {
+    if (calls.length && !isCalled) {
+      isCalled = true;
+      calls.shift().call();
+      setTimeout(function() {
+        isCalled = false;
+        caller();
+      }, wait);
+    }
+  };
+
+  return function() {
+    calls.push(fn.bind(this, ...arguments));
+    caller();
+  };
 }

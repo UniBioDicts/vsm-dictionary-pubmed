@@ -1,7 +1,8 @@
 const { getLastPartOfURL, fixedEncodeURIComponent,
-  removeDuplicates, isJSONString, cmpIntegerStrings } = require('./fun');
+  removeDuplicates, isJSONString, cmpIntegerStrings, limiter } = require('./fun');
 const chai = require('chai'); chai.should();
 const expect = chai.expect;
+const sinon = require('sinon');
 const fs = require('fs');
 const path = require('path');
 
@@ -107,4 +108,56 @@ describe('fun.js', () => {
       cb();
     });
   });
+
+  describe('limiter', () => {
+    const additionlimiter = limiter((a, b, cb) => cb(a + b), 1000);
+    let arr;
+    let clock;
+
+    beforeEach(() => {
+      arr = [];
+      clock = sinon.useFakeTimers();
+    });
+
+    afterEach(() => {
+      clock.restore();
+    });
+
+    /**
+     * See (Sinon.JS): https://stackoverflow.com/questions/17446064
+     */
+    it('throttles consecutive function calls', cb => {
+      arr.should.deep.equal([]);
+
+      for (let i = 0; i < 5; i++) {
+        additionlimiter(i, i + 1, res => arr.push(res));
+      }
+
+      clock.tick(100);
+      arr.should.deep.equal([1]);
+      clock.tick(899); // 100 + 899 = 999
+      arr.should.deep.equal([1]);
+      clock.tick(2);   // 999 + 2 = 1001
+      arr.should.deep.equal([1, 3]);
+      clock.tick(998); // 1001 + 998 = 1999
+      arr.should.deep.equal([1, 3]);
+      clock.tick(2);   // 1999 + 2 = 2001
+      arr.should.deep.equal([1, 3, 5]);
+      clock.tick(998); // 2001 + 998 = 2999
+      arr.should.deep.equal([1, 3, 5]);
+      clock.tick(2);   // 2999 + 2 = 3001
+      arr.should.deep.equal([1, 3, 5, 7]);
+      clock.tick(998); // 3001 + 998 = 3999
+      arr.should.deep.equal([1, 3, 5, 7]);
+      clock.tick(2);   // 3999 + 2 = 4001
+      arr.should.deep.equal([1, 3, 5, 7, 9]);
+      clock.tick(998); // 4001 + 998 = 4999
+      arr.should.deep.equal([1, 3, 5, 7, 9]);
+      clock.tick(1001);// 3999 + 1001 = 5000
+      arr.should.deep.equal([1, 3, 5, 7, 9]);
+
+      cb();
+    });
+  });
+
 });
