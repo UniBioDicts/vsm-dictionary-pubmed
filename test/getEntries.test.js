@@ -5,7 +5,9 @@
 
 const DictionaryPubMed = require('../src/DictionaryPubMed');
 
-const dict = new DictionaryPubMed({ log: true, apiKey: '' });
+// the following API key is for user `vsm_test`
+const apiKey = '57d456615939f9d1897d794ccb6fd1099408';
+const dict = new DictionaryPubMed({ log: true, apiKey: apiKey });
 
 dict.getEntries({
   filter: {
@@ -20,7 +22,7 @@ dict.getEntries({
   },
   page: 1,
   perPage: 4,
-  z: true
+  z: []
 }, (err, res) => {
   if (err) console.log(JSON.stringify(err, null, 4));
   else {

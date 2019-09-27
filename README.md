@@ -35,22 +35,22 @@ dict.getEntryMatchesForString('logical modeling', { page: 1, perPage: 10 },
 ```
 Then, run `node test.js`
 
-Note that by using no API key (as in the example above) the **upper limit of 
-requests to NCBI's Entrez system is 3**. A registered NCBI user can request for
-an API key that increases this limit to **10 requests/sec** (see [blog post](https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/)).
-If no `apikey` string is given in the constructor (if it's *absent* for example), 
-**we use an internal hardcoded NCBI API key** that guarantees the 10 requests/sec limit.
+Note that by using no API key (as in the example above - empty string or absent `apiKey` property) 
+the **upper limit of requests/sec to NCBI's Entrez system is 3**. 
+A registered NCBI user can request for an API key, which will increase this 
+limit to **10 requests/sec** (see [blog post](https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/)). 
 This limit is very important because the [vsm-autocomplete](https://github.com/vsmjs/vsm-autocomplete) module 
 that uses a vsm-dictionary as input, sends many such requests/sec since when 
 someone types a string in the input-field component, it uses the `getEntryMatchesForString`
-function of the underlying vsm-dictionary. When the requests exceed the aforementioned
-limit, an error object is returned from the Entrez servers (HTTP 429). 
+function of the underlying vsm-dictionary (and typing fast for example can trigger
+many such calls). When the requests exceed the aforementioned
+limit in each case, an error object is returned from the Entrez servers (HTTP 429).
 
 In order to account for this limit, we have implemented a rate limiter function that 
-accumulates in a queue the requests to these servers (see below the specification
-for `getEntries` and `getEntryMatchesForString` to see the URL requests) and 
+accumulates in a queue the requests to NCBI's servers (see below the specification
+for `getEntries` and `getEntryMatchesForString` to see the exact URL requests) and 
 sends only *one request per 200 ms* - thus ensuring that we will never receive 
-back that error.
+back that error **when using a proper API key**.
 
 ## Tests
 

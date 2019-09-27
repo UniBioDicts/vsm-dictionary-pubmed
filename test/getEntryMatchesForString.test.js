@@ -5,7 +5,9 @@
 
 const DictionaryPubMed = require('../src/DictionaryPubMed');
 
-const dict = new DictionaryPubMed({ log: true, apiKey: '' });
+// the following API key is for user `vsm_test`
+const apiKey = '57d456615939f9d1897d794ccb6fd1099408';
+const dict = new DictionaryPubMed({ log: true, apiKey: apiKey });
 
 dict.getEntryMatchesForString('logical modeling', { page: 1, perPage: 3, z: [] },
   (err, res) => {

@@ -7,7 +7,7 @@ const path = require('path');
 
 describe('DictionaryPubMed.js', () => {
 
-  const dict = new DictionaryPubMed({ log: true, apiKey: '' });
+  const dict = new DictionaryPubMed();
 
   const getEsummaryPath = path.join(__dirname, '..', 'resources', 'esummary.json');
   const getEsummaryStr = fs.readFileSync(getEsummaryPath, 'utf8');

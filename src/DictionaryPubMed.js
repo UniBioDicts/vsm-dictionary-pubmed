@@ -13,9 +13,8 @@ module.exports = class DictionaryPubMed extends Dictionary {
 
     // E-utilities parameters
     this.eutilsDatabase = 'pubmed';
-    this.eutilsAPIkey = (typeof opt.apiKey === 'string')
-      ? opt.apiKey
-      : '57d456615939f9d1897d794ccb6fd1099408';
+    this.eutilsAPIkey = (typeof opt.apiKey === 'string' && opt.apiKey !== '')
+      ? opt.apiKey : '';
     this.eutilsRestURL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
     this.esummaryRestURL = this.eutilsRestURL + 'esummary.fcgi?db='
         + this.eutilsDatabase + '&id=$ids';
