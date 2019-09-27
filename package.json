@@ -1,6 +1,6 @@
 {
   "name": "vsm-dictionary-pubmed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Implementation of a VSM-dictionary that uses NCBI's E-utilities API to retrieve records from the biomedical literature database PubMed",
   "main": "src/DictionaryPubMed.js",
   "scripts": {
