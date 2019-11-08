@@ -1,5 +1,11 @@
 # vsm-dictionary-pubmed
 
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/vsmjs/vsm-dictionary-pubmed.svg?branch=master)](https://travis-ci.org/vsmjs/vsm-dictionary-pubmed)
+[![npm version](https://img.shields.io/npm/v/vsm-dictionary-pubmed)](https://www.npmjs.com/package/vsm-dictionary-pubmed)
+[![Downloads](https://img.shields.io/npm/dm/vsm-dictionary-pubmed)](https://www.npmjs.com/package/vsm-dictionary-pubmed)
+<!-- badges: end -->
+
 ## Summary
 
 `vsm-dictionary-pubmed` is an implementation 
