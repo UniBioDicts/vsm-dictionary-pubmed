@@ -162,7 +162,7 @@ VSM-entry specific properties:
 PMID field | Type | Required | VSM entry/match object property | Notes  
 :---:|:---:|:---:|:---:|:---:
 `Object.keys(result)` | Array | YES | `id` | The VSM entry id is the full URI, not just the PMID
-`Object.keys(result)` | Array | YES | `str`, `terms[i].str` | The main term is 'PMID: \<PMID\>' 
+`Object.keys(result)` | Array | YES | `str`, `terms[i].str` | The main term is 'PMID:\<PMID\>' 
 `result[PMID].authors[0].name, result[PMID].source, result[PMID].pubdate, result[PMID].title` | Strings | NO | `descr` | The `descr` form is: {main author's name} ({Journal} {publication year}), {title}
 `result[PMID].articleids` | Array | YES | `z.articleIDs` | We map the whole array
 

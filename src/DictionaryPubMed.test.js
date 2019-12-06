@@ -154,7 +154,7 @@ describe('DictionaryPubMed.js', () => {
               dictID: 'https://www.ncbi.nlm.nih.gov/pubmed',
               descr: 'Rubinstein MH (J Pharm Pharmacol 1976), A new granulation method for compressed tablets [proceedings].',
               terms: [
-                { str: 'PMID: 12345' }
+                { str: 'PMID:12345' }
               ],
               z: {
                 articleIDs: [
@@ -193,11 +193,11 @@ describe('DictionaryPubMed.js', () => {
             {
               id: 'https://www.ncbi.nlm.nih.gov/pubmed/12345',
               dictID: 'https://www.ncbi.nlm.nih.gov/pubmed',
-              str: 'PMID: 12345',
+              str: 'PMID:12345',
               descr: 'Rubinstein MH (J Pharm Pharmacol 1976), A new granulation method for compressed tablets [proceedings].',
               type: 'T',
               terms: [
-                { str: 'PMID: 12345' }
+                { str: 'PMID:12345' }
               ],
               z: {
                 articleIDs: [

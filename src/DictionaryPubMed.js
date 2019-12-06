@@ -137,7 +137,7 @@ module.exports = class DictionaryPubMed extends Dictionary {
       // PMID is an integer (no leading zeros) and there is no error
       if ((/^[1-9]\d*/.test(PMID))
         && (typeof res.result[PMID].error === 'undefined')) {
-        let mainTerm = 'PMID: ' + PMID;
+        let mainTerm = 'PMID:' + PMID;
         resObj.push({
           id: this.pubMedDictID + '/' + PMID,
           dictID: this.pubMedDictID,
@@ -161,7 +161,7 @@ module.exports = class DictionaryPubMed extends Dictionary {
       // PMID is an integer (no leading zeros) and there is no error
       if ((/^[1-9]\d*/.test(PMID))
         && (typeof res.result[PMID].error === 'undefined')) {
-        let mainTerm = 'PMID: ' + PMID;
+        let mainTerm = 'PMID:' + PMID;
         resObj.push({
           id: this.pubMedDictID + '/' + PMID,
           dictID: this.pubMedDictID,
