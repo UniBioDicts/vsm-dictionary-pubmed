@@ -232,3 +232,7 @@ result (VSM-match object corresponding to the article):
 - `pmiD: 7717779` (note that the PMID keyword is case-insensitive)
 - `PMC1234567`
 - `10.1097/00000658-199503000-00007` (**not `DOI: <doi string>`**)
+
+## License
+
+This project is licensed under the AGPL license - see [LICENSE.md](LICENSE.md).
