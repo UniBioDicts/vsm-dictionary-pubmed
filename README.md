@@ -1,7 +1,7 @@
 # vsm-dictionary-pubmed
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/vsmjs/vsm-dictionary-pubmed.svg?branch=master)](https://travis-ci.org/vsmjs/vsm-dictionary-pubmed)
+[![Build Status](https://travis-ci.com/UniBioDicts/vsm-dictionary-pubmed.svg?branch=master)](https://travis-ci.com/UniBioDicts/vsm-dictionary-pubmed)
 [![npm version](https://img.shields.io/npm/v/vsm-dictionary-pubmed)](https://www.npmjs.com/package/vsm-dictionary-pubmed)
 [![Downloads](https://img.shields.io/npm/dm/vsm-dictionary-pubmed)](https://www.npmjs.com/package/vsm-dictionary-pubmed)
 <!-- badges: end -->
@@ -21,6 +21,10 @@ literature not only from MEDLINE, but also from other life science journals
 and online books. So, even though PubMed is not the actual database that holds 
 the literature data, it's commonly referred to as such and that's why we named 
 this vsm-dictionary after it.
+
+## Install
+
+Run: `npm install`
 
 ## Example use
 
