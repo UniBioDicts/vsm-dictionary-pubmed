@@ -5,7 +5,8 @@
   "main": "src/DictionaryPubMed.js",
   "scripts": {
     "lint": "eslint src test",
-    "test": "mocha \"src/**/*.test.js\" --check-leaks",
+    "test": "nyc --reporter=lcov mocha \"src/**/*.test.js\" --check-leaks",
+    "coverage": "codecov",
     "build": "webpack --config webpack.config.js"
   },
   "keywords": [
