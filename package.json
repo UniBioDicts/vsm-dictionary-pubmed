@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vsmjs/vsm-dictionary-pubmed"
+    "url": "git+https://github.com/UniBioDicts/vsm-dictionary-pubmed"
   },
   "author": "John Zobolas",
   "license": "AGPL-3.0",
