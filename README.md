@@ -12,7 +12,7 @@
 
 `vsm-dictionary-pubmed` is an implementation 
 of the 'VsmDictionary' parent-class/interface (from the package
-[`vsm-dictionary`](https://github.com/vsmjs/vsm-dictionary)), that uses 
+[`vsm-dictionary`](https://github.com/vsm/vsm-dictionary)), that uses 
 NCBI's [Programming Utilities (E-utilities) API](https://www.ncbi.nlm.nih.gov/books/NBK25501/) 
 to interact with [Entrez's](https://www.ncbi.nlm.nih.gov/Web/Search/entrezfs.html) 
 PubMed MEDLINE database and retrieve bibliographic information for articles from 
@@ -51,7 +51,7 @@ Note that by using no API key (as in the example above - empty string or absent 
 the **upper limit of requests/sec to NCBI's Entrez system is 3**. 
 A registered NCBI user can request for an API key, which will increase this 
 limit to **10 requests/sec** (see [blog post](https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/)). 
-This limit is very important because the [vsm-autocomplete](https://github.com/vsmjs/vsm-autocomplete) module 
+This limit is very important because the [vsm-autocomplete](https://github.com/vsm/vsm-autocomplete) module 
 that uses a vsm-dictionary as input, sends many such requests/sec since when 
 someone types a string in the input-field component, it uses the `getEntryMatchesForString`
 function of the underlying vsm-dictionary (and typing fast for example can trigger
@@ -91,7 +91,7 @@ header of an HTML file.
 ## Specification
 
 Like all VsmDictionary subclass implementations, this package follows
-the parent class [specification](https://github.com/vsmjs/vsm-dictionary/blob/master/Dictionary.spec.md).
+the parent class [specification](https://github.com/vsm/vsm-dictionary/blob/master/Dictionary.spec.md).
 In the next sections we will explain the mapping between the data 
 offered by two of Entrez's E-utilities (*esearch* and *esummary*) and the 
 corresponding VSM objects. Find the documentation for the API here: 
