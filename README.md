@@ -30,10 +30,13 @@ Run: `npm install`
 
 ## Example use
 
-Create a `test.js` file and include this code:
+### Node.js
+
+Create a directory `test-dir` and inside run `npm install vsm-dictionary-pubmed`.
+Then, create a `test.js` file and include this code for example:
 
 ```javascript
-const DictionaryPubMed = require('./DictionaryPubMed');
+const DictionaryPubMed = require('vsm-dictionary-pubmed');
 const dict = new DictionaryPubMed({ log: true, apiKey: ''});
 
 dict.getEntryMatchesForString('logical modeling', { page: 1, perPage: 10 }, 
@@ -63,6 +66,13 @@ accumulates in a queue the requests to NCBI's servers (see below the specificati
 for `getEntries` and `getEntryMatchesForString` to see the exact URL requests) and 
 sends only *one request per 200 ms* - thus ensuring that we will never receive 
 back that error **when using a proper API key**.
+
+### Browsers
+
+```html
+<script src="https://unpkg.com/vsm-dictionary-pubmed@^1.0.0/dist/vsm-dictionary-pubmed.min.js"></script>
+```
+after which it is accessible as the global variable `VsmDictionaryPubMed`.
 
 ## Tests
 
@@ -218,7 +228,9 @@ value is `most recent`. Other acceptable values are:
     - `title`
     - `author`  
 This option can be defined in the constructor:   
-`const dict = new DictionaryPubMed({ sort: 'relevance' });`
+```javascript
+const dict = new DictionaryPubMed({ sort: 'relevance' });
+```
 - The last part defines the format of the returned data (JSON)
 - There can also be a part that defines the API key as in the `esummary` case.
 
