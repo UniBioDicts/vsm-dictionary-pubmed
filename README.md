@@ -1,7 +1,7 @@
 # vsm-dictionary-pubmed
 
 <!-- badges: start -->
-[![Build Status](https://travis-ci.com/UniBioDicts/vsm-dictionary-pubmed.svg?branch=master)](https://travis-ci.com/UniBioDicts/vsm-dictionary-pubmed)
+[![Node.js CI](https://github.com/UniBioDicts/vsm-dictionary-pubmed/workflows/Node.js%20CI/badge.svg)](https://github.com/UniBioDicts/vsm-dictionary-pubmed/actions)
 [![codecov](https://codecov.io/gh/UniBioDIcts/vsm-dictionary-pubmed/branch/master/graph/badge.svg)](https://codecov.io/gh/UniBioDIcts/vsm-dictionary-pubmed)
 [![npm version](https://img.shields.io/npm/v/vsm-dictionary-pubmed)](https://www.npmjs.com/package/vsm-dictionary-pubmed)
 [![Downloads](https://img.shields.io/npm/dm/vsm-dictionary-pubmed)](https://www.npmjs.com/package/vsm-dictionary-pubmed)
